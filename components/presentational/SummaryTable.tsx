@@ -26,11 +26,6 @@ export function SummaryTable({ summary }: SummaryTableProps) {
               <span className="text-label-lg text-on-surface-variant">
                 총 신청자 <span className="text-primary">{count}명</span>
               </span>
-              <span className="text-[13px] text-on-surface-variant">
-                (갈 때 <span className="text-primary">{outboundCount}</span>
-                <span className="text-outline mx-0.5">·</span>
-                올 때 <span className="text-primary">{returnCount}</span>)
-              </span>
             </div>
           </div>
           <span className="material-symbols-outlined text-outline">chevron_right</span>

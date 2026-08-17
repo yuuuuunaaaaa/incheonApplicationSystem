@@ -2,14 +2,13 @@
 
 import type { Member } from "@/types/member";
 import type { EventDate } from "@/types/application";
-import { DIRECTION_BADGE_STYLES, DIRECTION_LABELS, type Direction } from "@/types/application";
+import type { Direction } from "@/types/application";
 
 export interface MemberListProps {
   members: Member[];
   selectedDate: EventDate;
   getDirection: (name: string, date: EventDate) => Direction | null;
   onToggle: (name: string, date: EventDate) => void;
-  onCycleDirection: (name: string, date: EventDate) => void;
   disabled?: boolean;
   readOnly?: boolean;
 }
@@ -19,7 +18,6 @@ export function MemberList({
   selectedDate,
   getDirection,
   onToggle,
-  onCycleDirection,
   disabled = false,
   readOnly = false,
 }: MemberListProps) {
@@ -36,7 +34,7 @@ export function MemberList({
         </span>
         {readOnly
           ? "조회 전용입니다. 수정은 관리자만 가능합니다."
-          : "성명을 눌러 신청 여부를 변경하고, 오른쪽 배지를 눌러 왕복/갈때만/올때만을 변경하세요"}
+          : "성명을 눌러 식사 신청 여부를 변경하세요"}
       </p>
       <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {sortedMembers.map((member) => {
@@ -79,20 +77,6 @@ export function MemberList({
                   {member.name}
                 </span>
               </span>
-
-              {applied && direction && (
-                <button
-                  type="button"
-                  disabled={!interactive}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onCycleDirection(member.name, selectedDate);
-                  }}
-                  className={`shrink-0 px-2 py-1 rounded-full text-[11px] font-bold transition-colors active:scale-95 disabled:opacity-60 ${DIRECTION_BADGE_STYLES[direction]}`}
-                >
-                  {DIRECTION_LABELS[direction]}
-                </button>
-              )}
             </div>
           );
         })}

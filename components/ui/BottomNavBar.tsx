@@ -8,7 +8,7 @@ import { LoginModal } from "@/components/ui/LoginModal";
 import { Toast } from "@/components/ui/Toast";
 
 interface BottomNavBarProps {
-  activeTab: "apply" | "status" | "fare";
+  activeTab: "apply" | "status";
   onNavigate?: (href: string) => void;
 }
 
@@ -26,7 +26,7 @@ function NavItem({
   label: string;
 }) {
   const className = [
-    "flex flex-col items-center justify-center px-4 py-2 rounded-2xl transition-all duration-200 active:scale-90",
+    "flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200 active:scale-90 self-center shrink-0",
     active
       ? "bg-primary-container text-on-primary-container"
       : "text-on-surface-variant hover:bg-secondary-container",
@@ -36,7 +36,7 @@ function NavItem({
     <>
       <span
         className="material-symbols-outlined"
-        style={active ? { fontVariationSettings: "'FILL' 1" } : undefined}
+        style={{ fontSize: 22, ...(active ? { fontVariationSettings: "'FILL' 1" } : {}) }}
       >
         {icon}
       </span>
@@ -66,14 +66,14 @@ export function BottomNavBar({ activeTab, onNavigate }: BottomNavBarProps) {
   return (
     <>
       <nav className="fixed bottom-0 left-0 w-full z-50 bg-surface-container-lowest rounded-t-xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
-        <div className="flex items-center h-touch-target-optimal px-4 pb-safe max-w-2xl mx-auto gap-2">
+        <div className="flex items-center py-2 px-4 pb-safe max-w-2xl mx-auto gap-2 min-h-touch-target-optimal">
           {isAuthenticated && (
             <AdminAccessButton
               onClick={() => setShowLoginModal(true)}
               isAuthenticated={isAuthenticated}
             />
           )}
-          <div className="flex flex-1 justify-around items-center">
+          <div className="flex flex-1 justify-around items-center py-1">
             {isAuthenticated ? (
               <NavItem
                 href="/"
@@ -86,7 +86,7 @@ export function BottomNavBar({ activeTab, onNavigate }: BottomNavBarProps) {
               <button
                 type="button"
                 onClick={() => setShowLoginModal(true)}
-                className="flex flex-col items-center justify-center px-4 py-2 rounded-2xl text-on-surface-variant hover:bg-secondary-container transition-all duration-200 active:scale-90"
+                className="flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-on-surface-variant hover:bg-secondary-container transition-all duration-200 active:scale-90 self-center shrink-0"
               >
                 <span className="material-symbols-outlined">lock</span>
                 <span className="text-label-lg">로그인</span>
@@ -99,15 +99,6 @@ export function BottomNavBar({ activeTab, onNavigate }: BottomNavBarProps) {
               icon="analytics"
               label="현황확인"
             />
-            {isAuthenticated && (
-              <NavItem
-                href="/fare"
-                onNavigate={onNavigate}
-                active={activeTab === "fare"}
-                icon="payments"
-                label="차비"
-              />
-            )}
           </div>
         </div>
       </nav>

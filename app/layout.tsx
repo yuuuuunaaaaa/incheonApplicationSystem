@@ -5,10 +5,10 @@ import { AppProviders } from "@/components/providers/AppProviders";
 
 export const metadata: Metadata = {
   title: {
-    default: "2026 수양회 차량 신청",
-    template: "%s | 2026 수양회 차량 신청",
+    default: "전도집회 식사 신청",
+    template: "%s | 전도집회 식사 신청",
   },
-  description: "2026 수양회 차량 신청 관리",
+  description: "전도집회 식사 신청 관리",
 };
 
 export const viewport: Viewport = {

@@ -27,7 +27,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { zone } = await params;
-  return { title: `${decodeZoneParam(zone)} 차량 신청` };
+  return { title: `${decodeZoneParam(zone)} 식사 신청` };
 }
 
 export default async function ZonePage({ params }: PageProps) {

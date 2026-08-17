@@ -1,11 +1,7 @@
 "use client";
 
-import type { Direction } from "@/types/application";
-import { DIRECTION_BADGE_STYLES, DIRECTION_LABELS } from "@/types/application";
-
 interface Applicant {
   name: string;
-  direction: Direction;
 }
 
 interface ConfirmSaveModalProps {
@@ -32,10 +28,8 @@ export function ConfirmSaveModal({
       <div className="absolute inset-0 bg-black/50" onClick={isLoading ? undefined : onCancel} />
       <div className="relative w-full sm:max-w-md bg-surface rounded-t-3xl sm:rounded-3xl shadow-2xl">
         <div className="p-6">
-          {/* 핸들바 */}
           <div className="w-10 h-1 bg-outline-variant rounded-full mx-auto mb-5 sm:hidden" />
 
-          {/* 헤더 */}
           <div className="flex items-center gap-3 mb-5">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
               <span className="material-symbols-outlined text-primary">save</span>
@@ -46,7 +40,6 @@ export function ConfirmSaveModal({
             </div>
           </div>
 
-          {/* 신청자 목록 */}
           <div className="bg-surface-container-low rounded-xl p-4 mb-5">
             <div className="flex items-center gap-2 mb-3">
               <span
@@ -61,7 +54,7 @@ export function ConfirmSaveModal({
             </div>
             {applicants.length > 0 ? (
               <div className="max-h-52 overflow-y-auto space-y-1">
-                {applicants.map(({ name, direction }) => (
+                {applicants.map(({ name }) => (
                   <div key={name} className="flex items-center gap-2 py-1">
                     <span
                       className="material-symbols-outlined text-primary shrink-0"
@@ -70,9 +63,6 @@ export function ConfirmSaveModal({
                       check_circle
                     </span>
                     <span className="text-body-md text-on-surface flex-1">{name}</span>
-                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0 ${DIRECTION_BADGE_STYLES[direction]}`}>
-                      {DIRECTION_LABELS[direction]}
-                    </span>
                   </div>
                 ))}
               </div>
@@ -83,7 +73,6 @@ export function ConfirmSaveModal({
             )}
           </div>
 
-          {/* 버튼 */}
           <div className="flex gap-3">
             <button
               type="button"
