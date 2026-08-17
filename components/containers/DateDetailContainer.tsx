@@ -43,11 +43,6 @@ export function DateDetailContainer({ date }: DateDetailContainerProps) {
                 </span>
                 <span className="text-xl opacity-90">명</span>
               </div>
-              {!isLoading && (
-                <span className="text-sm opacity-80">
-                  (갈 때 {outboundCount} · 올 때 {returnCount})
-                </span>
-              )}
             </div>
           </div>
         </section>

@@ -6,13 +6,13 @@ export const AUTH_COOKIE_NAME = "admin_session";
 export function getAdminCredentials() {
   return {
     username: process.env.ADMIN_USERNAME ?? "admin",
-    password: process.env.ADMIN_PASSWORD ?? "vehicle2026",
+    password: process.env.ADMIN_PASSWORD ?? "918918",
   };
 }
 
 export function createAuthToken(): string {
   const { password } = getAdminCredentials();
-  return createHash("sha256").update(`vehicle-admin:${password}`).digest("hex");
+  return createHash("sha256").update(`dinner-admin:${password}`).digest("hex");
 }
 
 export function verifyCredentials(username: string, password: string): boolean {

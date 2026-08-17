@@ -1,51 +1,62 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
-export type Leg = "outbound" | "return";
-
-function storageKey(date: string, leg: Leg): string {
-  return `boarding-check:${date}:${leg}`;
+function storageKey(date: string): string {
+  return `dinner-check:${date}`;
 }
 
-interface UseBoardingCheckResult {
+function loadChecked(date: string): Set<string> {
+  try {
+    const raw = localStorage.getItem(storageKey(date));
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+interface UseDinnerCheckResult {
   checked: Set<string>;
   toggle: (key: string) => void;
   clear: () => void;
 }
 
-export function useBoardingCheck(date: string, leg: Leg): UseBoardingCheckResult {
-  const [checked, setChecked] = useState<Set<string>>(new Set());
+export function useDinnerCheck(date: string): UseDinnerCheckResult {
+  const [storedDate, setStoredDate] = useState(date);
+  const [checked, setChecked] = useState(() => loadChecked(date));
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(storageKey(date, leg));
-      setChecked(raw ? new Set(JSON.parse(raw)) : new Set());
-    } catch {
-      setChecked(new Set());
-    }
-  }, [date, leg]);
+  if (storedDate !== date) {
+    setStoredDate(date);
+    setChecked(loadChecked(date));
+  }
 
   const persist = useCallback(
     (next: Set<string>) => {
       setChecked(next);
       try {
-        localStorage.setItem(storageKey(date, leg), JSON.stringify(Array.from(next)));
+        localStorage.setItem(storageKey(date), JSON.stringify(Array.from(next)));
       } catch {
-        // localStorage unavailable (e.g. private browsing) — in-memory state still works for this session
+        // localStorage unavailable — in-memory state still works for this session
       }
     },
-    [date, leg]
+    [date]
   );
 
   const toggle = useCallback(
     (key: string) => {
-      const next = new Set(checked);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      persist(next);
+      setChecked((prev) => {
+        const next = new Set(prev);
+        if (next.has(key)) next.delete(key);
+        else next.add(key);
+        try {
+          localStorage.setItem(storageKey(date), JSON.stringify(Array.from(next)));
+        } catch {
+          // localStorage unavailable
+        }
+        return next;
+      });
     },
-    [checked, persist]
+    [date]
   );
 
   const clear = useCallback(() => {
@@ -53,4 +64,10 @@ export function useBoardingCheck(date: string, leg: Leg): UseBoardingCheckResult
   }, [persist]);
 
   return { checked, toggle, clear };
+}
+
+/** @deprecated Use useDinnerCheck instead */
+export type Leg = "outbound" | "return";
+export function useBoardingCheck(date: string) {
+  return useDinnerCheck(date);
 }

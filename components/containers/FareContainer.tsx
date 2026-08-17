@@ -157,7 +157,7 @@ export function FareContainer() {
         )}
       </main>
 
-      <BottomNavBar activeTab="fare" />
+      <BottomNavBar activeTab="status" />
     </div>
   );
 }

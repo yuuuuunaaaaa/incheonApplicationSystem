@@ -41,7 +41,6 @@ export function ZoneApplicationContainer({ zone }: ZoneApplicationContainerProps
     error: appsError,
     getDirection,
     pendingToggle,
-    cycleDirection,
     save,
     isSaving,
     hasPendingChanges,
@@ -66,7 +65,8 @@ export function ZoneApplicationContainer({ zone }: ZoneApplicationContainerProps
   const canEdit = isAuthenticated && !authLoading;
   const applicants = members
     .map((m) => ({ name: m.name, direction: getDirection(m.name, selectedDate) }))
-    .filter((a): a is { name: string; direction: NonNullable<typeof a.direction> } => a.direction !== null);
+    .filter((a): a is { name: string; direction: NonNullable<typeof a.direction> } => a.direction !== null)
+    .map(({ name }) => ({ name }));
   const appliedCount = applicants.length;
   const dateLabel = `${DATE_LABELS[selectedDate]} ${DATE_DAY_LABELS[selectedDate]}`;
 
@@ -153,7 +153,7 @@ export function ZoneApplicationContainer({ zone }: ZoneApplicationContainerProps
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <TopAppBar
-        title={`${zone} 차량 신청`}
+        title={`${zone} 식사 신청`}
         onBackClick={handleBack}
         titleColor="on-surface"
       />
@@ -211,7 +211,6 @@ export function ZoneApplicationContainer({ zone }: ZoneApplicationContainerProps
                 selectedDate={selectedDate}
                 getDirection={getDirection}
                 onToggle={pendingToggle}
-                onCycleDirection={cycleDirection}
                 disabled={isSaving}
                 readOnly={!canEdit}
               />
