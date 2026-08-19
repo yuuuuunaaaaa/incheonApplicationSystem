@@ -8,7 +8,7 @@ import { LoginModal } from "@/components/ui/LoginModal";
 import { Toast } from "@/components/ui/Toast";
 
 interface BottomNavBarProps {
-  activeTab: "apply" | "status";
+  activeTab: "apply" | "apply-v2" | "status" | "status-v2";
   onNavigate?: (href: string) => void;
 }
 
@@ -75,30 +75,48 @@ export function BottomNavBar({ activeTab, onNavigate }: BottomNavBarProps) {
           )}
           <div className="flex flex-1 justify-around items-center py-1">
             {isAuthenticated ? (
-              <NavItem
-                href="/"
-                onNavigate={onNavigate}
-                active={activeTab === "apply"}
-                icon="edit_calendar"
-                label="신청하기"
-              />
+              <>
+                {/* <NavItem
+                  href="/"
+                  onNavigate={onNavigate}
+                  active={activeTab === "apply"}
+                  icon="edit_calendar"
+                  label="신청하기"
+                /> */}
+                <NavItem
+                  href="/apply-v2"
+                  onNavigate={onNavigate}
+                  active={activeTab === "apply-v2"}
+                  icon="groups"
+                  label="신청하기"
+                />
+                <NavItem
+                  href="/summary-v2"
+                  onNavigate={onNavigate}
+                  active={activeTab === "status-v2"}
+                  icon="analytics"
+                  label="현황확인"
+                />
+              </>
             ) : (
-              <button
-                type="button"
-                onClick={() => setShowLoginModal(true)}
-                className="flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-on-surface-variant hover:bg-secondary-container transition-all duration-200 active:scale-90 self-center shrink-0"
-              >
-                <span className="material-symbols-outlined">lock</span>
-                <span className="text-label-lg">로그인</span>
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => setShowLoginModal(true)}
+                  className="flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 rounded-xl text-on-surface-variant hover:bg-secondary-container transition-all duration-200 active:scale-90 self-center shrink-0"
+                >
+                  <span className="material-symbols-outlined">lock</span>
+                  <span className="text-label-lg">로그인</span>
+                </button>
+                <NavItem
+                  href="/summary-v2"
+                  onNavigate={onNavigate}
+                  active={activeTab === "status-v2"}
+                  icon="analytics"
+                  label="현황확인"
+                />
+              </>
             )}
-            <NavItem
-              href="/summary"
-              onNavigate={onNavigate}
-              active={activeTab === "status"}
-              icon="analytics"
-              label="현황확인"
-            />
           </div>
         </div>
       </nav>

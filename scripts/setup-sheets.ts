@@ -43,6 +43,16 @@ async function main() {
     },
   });
 
+  // headcount v2 시트 헤더 (구역별/일별 인원)
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SPREADSHEET_ID,
+    range: "headcounts!A1:D1",
+    valueInputOption: "RAW",
+    requestBody: {
+      values: [["zone", "date", "count", "updated_at"]],
+    },
+  });
+
   console.log("시트 헤더 설정 완료");
 }
 

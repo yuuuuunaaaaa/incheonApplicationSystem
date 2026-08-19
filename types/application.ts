@@ -6,7 +6,6 @@ export type EventDate =
   | "2026-09-03"
   | "2026-09-04"
   | "2026-09-05"
-  | "2026-09-06";
 
 export const EVENT_DATES: EventDate[] = [
   "2026-09-01",
@@ -14,7 +13,6 @@ export const EVENT_DATES: EventDate[] = [
   "2026-09-03",
   "2026-09-04",
   "2026-09-05",
-  "2026-09-06",
 ];
 
 export const DATE_LABELS: Record<EventDate, string> = {
@@ -23,7 +21,6 @@ export const DATE_LABELS: Record<EventDate, string> = {
   "2026-09-03": "9월 3일",
   "2026-09-04": "9월 4일",
   "2026-09-05": "9월 5일",
-  "2026-09-06": "9월 6일",
 };
 
 export const DATE_DAY_LABELS: Record<EventDate, string> = {
@@ -32,7 +29,6 @@ export const DATE_DAY_LABELS: Record<EventDate, string> = {
   "2026-09-03": "(목)",
   "2026-09-04": "(금)",
   "2026-09-05": "(토)",
-  "2026-09-06": "(일)",
 };
 
 export type Direction = "both" | "outbound" | "return";
