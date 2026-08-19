@@ -1,27 +1,21 @@
 export type Zone =
-  | "1구역"
-  | "2구역"
-  | "3구역"
-  | "4구역"
-  | "5구역"
-  | "6구역"
-  | "7구역"
-  | "8구역"
-  | "9구역"
-  | "청년회";
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "7"
+  | "8"
+  | "9"
+  | "y";
 
-export const ZONES: Zone[] = [
-  "1구역",
-  "2구역",
-  "3구역",
-  "4구역",
-  "5구역",
-  "6구역",
-  "7구역",
-  "8구역",
-  "9구역",
-  "청년회",
-];
+export const ZONES: Zone[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "y"];
+
+export function zoneDisplayName(zone: Zone): string {
+  if (zone === "y") return "청년회";
+  return `${zone}구역`;
+}
 
 export interface Member {
   id: number;

@@ -1,6 +1,7 @@
 "use client";
 
 import type { Member, Zone } from "@/types/member";
+import { zoneDisplayName } from "@/types/member";
 import { useZoneMemberCrud } from "@/hooks/useZoneMemberCrud";
 import { TopAppBar } from "@/components/ui/TopAppBar";
 import { MemberEditModal } from "@/components/ui/MemberEditModal";
@@ -68,14 +69,14 @@ export function ZoneMemberContainer({ zone }: ZoneMemberContainerProps) {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <TopAppBar
-        title={`${zone} 구성원 관리`}
-        backHref={`/zone/${encodeURIComponent(zone)}`}
+        title={`${zoneDisplayName(zone)} 구성원 관리`}
+        backHref={`/zone/${zone}`}
         titleColor="on-surface"
       />
 
       <main className="flex-grow pt-20 pb-8 px-container-padding max-w-2xl mx-auto w-full">
         <section className="mt-stack-gap-md mb-stack-gap-md">
-          <h2 className="text-headline-lg text-on-surface mb-1">{zone} 구성원</h2>
+          <h2 className="text-headline-lg text-on-surface mb-1">{zoneDisplayName(zone)} 구성원</h2>
           <p className="text-body-md text-on-surface-variant">
             이름과 미성년자 여부를 등록·수정·삭제할 수 있습니다. 구역은 변경할 수 없습니다.
           </p>

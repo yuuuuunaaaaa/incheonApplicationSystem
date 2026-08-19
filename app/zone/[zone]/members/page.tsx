@@ -1,22 +1,27 @@
 import type { Metadata } from "next";
 import { ZoneMemberContainer } from "@/components/containers/ZoneMemberContainer";
-import type { Zone } from "@/types/member";
-import { ZONES } from "@/types/member";
+import { slugToZone, getAllZoneSlugs } from "@/lib/zoneSlugV2";
+import { zoneDisplayName } from "@/types/member";
 
 interface PageProps {
   params: Promise<{ zone: string }>;
 }
 
 export function generateStaticParams() {
-  return ZONES.map((zone) => ({ zone: encodeURIComponent(zone) }));
+  return getAllZoneSlugs().map((slug) => ({ zone: slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { zone } = await params;
-  return { title: `${decodeURIComponent(zone)} 구성원 관리` };
+  const { zone: slug } = await params;
+  const zone = slugToZone(slug);
+  return { title: `${zone ? zoneDisplayName(zone) : slug} 구성원 관리` };
 }
 
 export default async function ZoneMembersPage({ params }: PageProps) {
-  const { zone } = await params;
-  return <ZoneMemberContainer zone={decodeURIComponent(zone) as Zone} />;
+  const { zone: slug } = await params;
+  const zone = slugToZone(slug);
+  if (!zone) {
+    return <p className="p-6 text-error">잘못된 구역입니다.</p>;
+  }
+  return <ZoneMemberContainer zone={zone} />;
 }

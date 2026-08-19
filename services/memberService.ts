@@ -24,8 +24,7 @@ export async function getAllMembers(): Promise<Member[]> {
   return rows
     .filter((r) => r[0] && !isNaN(Number(r[0])) && r[2])
     .map((r) => {
-      const rawZone = (r[1] ?? "").trim();
-      const zone = (rawZone.endsWith("구역") || rawZone === "청년회") ? rawZone : `${rawZone}구역`;
+      const zone = (r[1] ?? "").trim();
       return {
         id: parseInt(r[0], 10),
         zone: zone as Zone,

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import type { Zone } from "@/types/member";
+import { zoneDisplayName } from "@/types/member";
 import type { EventDate } from "@/types/application";
 import { EVENT_DATES } from "@/types/application";
 import { useMembers } from "@/hooks/useMembers";
@@ -153,7 +154,7 @@ export function ZoneApplicationContainer({ zone }: ZoneApplicationContainerProps
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <TopAppBar
-        title={`${zone} 식사 신청`}
+        title={`${zoneDisplayName(zone)} 식사 신청`}
         onBackClick={handleBack}
         titleColor="on-surface"
       />

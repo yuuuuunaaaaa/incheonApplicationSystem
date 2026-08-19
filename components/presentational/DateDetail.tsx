@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import type { ZoneSummaryForDate } from "@/types/application";
-// import { useDinnerCheck } from "@/hooks/useBoardingCheck";
+import { zoneDisplayName } from "@/types/member";
+import type { Zone } from "@/types/member";
 
 export interface DateDetailProps {
   date: string;
@@ -134,7 +135,7 @@ export function DateDetail({ summary }: DateDetailProps) {
                   </span>
                 </div>
                 <div className="text-left">
-                  <h3 className="text-headline-md text-on-surface">{zone}</h3>
+                  <h3 className="text-headline-md text-on-surface">{zoneDisplayName(zone as Zone)}</h3>
                   <p className="text-body-md text-on-surface-variant">총 {count}명 신청 완료</p>
                 </div>
               </div>
